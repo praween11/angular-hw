@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="bg-body-secondary py-2 ps-2 fs-4">
+                {{this.quizInfo?.title}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col position-relative">
+            <div class="mt-3">
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" (click)="previousQuiz()" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        @for (item of this.quizInfo?.questionInfo; track $index) {
+                            <li class="page-item"><a class="page-link" [class.active]="item.questionId === quizId" (click)="gotoQuiz(item.questionId!)">{{item.sequence}}</a></li>
+                        }
+                        <li class="page-item">
+                            <a class="page-link" (click)="nextQuiz()" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="timer border border-1 py-1 px-2">{{this.display}}</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="overlay" *ngIf="timeUp">
+        <div id="time-screen">Time UP</div>
+    </div>
+    <app-quiz-page-detail [questionInfo]="quizDetail" [answer]="quizAnswer" (sendAnsEvent)="sendAnswerAndNext($event)" (backQuizEvent)="previousQuiz()"></app-quiz-page-detail>
+</div>

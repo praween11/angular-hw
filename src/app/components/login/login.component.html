@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6 d-none d-md-flex d-flex justify-content-center">
+        <img src="/assets/krungsri.jpg" />
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <form novalidate #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" required [(ngModel)]="loginForm.username" #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.invalid }" placeholder="Enter username" [ngModelOptions]="{standalone: true}" autocomplete="off">
+          </div>
+          <div class="form-group mt-2">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" required [(ngModel)]="loginForm.password" placeholder="Password" [ngModelOptions]="{standalone: true}" autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-primary mt-3 btn-min">Login</button>
+          <div class="form-group">
+            @if (f.submitted && isLoginFailed) {
+            <div class="alert alert-danger" role="alert">
+              Login failed: {{ errorMessage }}
+            </div>
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

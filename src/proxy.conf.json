@@ -1,0 +1,6 @@
+{
+    "/api": {
+        "target": "http://home-portal.trueddns.com:61511",
+        "secure": false
+    }
+}
