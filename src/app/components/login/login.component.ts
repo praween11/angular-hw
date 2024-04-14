@@ -34,13 +34,11 @@ export class LoginComponent implements OnInit {
       username, password
     ).subscribe({
       next: data => {
-        console.log('login success');
         this.authService.saveUser(data);
         this.isLoginFailed = false;
         this.route.navigate(['/quiz-category']);
       },
       error: err => {
-        console.log('login fail');
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }

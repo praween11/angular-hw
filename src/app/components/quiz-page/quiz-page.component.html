@@ -32,7 +32,9 @@
         </div>
     </div>
     <div class="overlay" *ngIf="timeUp">
-        <div id="time-screen">Time UP</div>
+        <div id="time-screen">
+            <div id="time-screen-content">Time UP</div>
+        </div>
     </div>
     <app-quiz-page-detail [questionInfo]="quizDetail" [answer]="quizAnswer" (sendAnsEvent)="sendAnswerAndNext($event)" (backQuizEvent)="previousQuiz()"></app-quiz-page-detail>
 </div>

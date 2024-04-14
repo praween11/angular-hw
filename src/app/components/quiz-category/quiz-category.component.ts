@@ -17,7 +17,6 @@ export class QuizCategoryComponent implements OnInit {
   constructor(private quizService: QuizService, private route: Router){}
 
   ngOnInit(): void {
-    console.log('ngOnInit')
     this.quizDataEmitter$ = this.quizService.quizlist().pipe(map(x => {
       return x.data;
     }));

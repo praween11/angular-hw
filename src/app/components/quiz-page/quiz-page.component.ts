@@ -30,7 +30,6 @@ export class QuizPageComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.quizService.quizById(id!).subscribe(data => {
-      console.log(data);
       this.quizInfo = data?.data;
       this.quizId = this.quizInfo?.questionInfo![0].questionId;
       this.quizDetail = this.quizInfo?.questionInfo![0];
@@ -71,19 +70,16 @@ export class QuizPageComponent implements OnInit {
   gotoQuiz(questionId: string | null){
     this.quizDetail = this.quizInfo?.questionInfo?.find(x => x.questionId == questionId);
     this.quizId = questionId;
-    this.quizAnswer = this.answer.questions?.find(x => x.questionId == this.quizId)!.answers;
+    this.quizAnswer = this.answer.questions?.find(x => x.questionId == this.quizId)?.answers!;
   }
 
   sendAnswerAndNext(answers: string[]){
-    console.log(answers);
     this.answer.questions = this.answer.questions?.filter(x => x.questionId != this.quizId!);
     let ans = {questionId: this.quizId!, answers: new Array()};
     answers.forEach(answer => {
       ans.answers.push({questionAnswerId: answer});
     })
     this.answer.questions?.push(ans);
-    console.log('this.answer');
-    console.log(this.answer);
     this.nextQuiz();
   }
 
@@ -101,10 +97,7 @@ export class QuizPageComponent implements OnInit {
     if (this.quizInfo?.questionInfo?.find(x => x.sequence > currentQuiz?.sequence!) != null){
       this.quizDetail = this.quizInfo?.questionInfo?.find(x => x.sequence == currentQuiz?.sequence! + 1);
       this.quizId = this.quizDetail?.questionId;
-      console.log('this.quizId = '+ this.quizId);
       this.quizAnswer = this.answer.questions?.find(x => x.questionId == this.quizId)?.answers;
-      console.log('this.quizAnswer');
-      console.log(this.quizAnswer);
     }
     else {
       this.sendAwswer();
@@ -113,7 +106,6 @@ export class QuizPageComponent implements OnInit {
 
   sendAwswer(){
     this.quizService.submitAwswer(this.answer).subscribe(data => {
-      console.log(data);
       const navigationExtras: NavigationExtras = {
         state: {
           data: data

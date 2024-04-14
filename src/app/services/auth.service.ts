@@ -57,7 +57,6 @@ export class AuthService {
   }
 
   logout(): void {
-    console.log('logout');
     localStorage.removeItem(this.authSecretKey);
     localStorage.removeItem(this.userKey);
     this.isAuthenticated = false;
